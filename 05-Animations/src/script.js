@@ -37,6 +37,7 @@ renderer.render(scene, camera);
 // const clock = new THREE.Clock()
 
 gsap.to(mesh.position, {duration:1, x:2, delay: 1})
+gsap.to(mesh.position, {duration:1, x:0, delay: 2})
 
 //Animations
 const tick = () => {
