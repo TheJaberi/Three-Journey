@@ -33,6 +33,17 @@ gui
     .step(0.01)
     .name('Elevation')
 
+gui
+    .add(mesh, 'visible')
+
+gui
+    .add(material, 'wireframe')
+
+gui
+    .addColor(material, 'color')
+    .onChange((value) => {
+        console.log(value.getHexString())
+    })
 /**
  * Sizes
  */
