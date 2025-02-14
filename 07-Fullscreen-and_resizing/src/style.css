@@ -1,0 +1,16 @@
+/* selects all elements and reset them basically  */
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.webgl{
+  position: 0;
+  top: 0;
+  left: 0;
+  outline: none; /* some browser will outline */
+ }
+
+html, body{
+  overflow: hidden;
+}
