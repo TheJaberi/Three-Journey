@@ -17,13 +17,15 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Axes helper
-const axesHelper = new THREE.AxesHelper()
-scene.add(axesHelper)
+// const axesHelper = new THREE.AxesHelper()
+// scene.add(axesHelper)
 
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
+matcapTexture.colorSpace = THREE.SRGBColorSpace
 
 /**
  * Fonts
@@ -54,10 +56,32 @@ fontLoader.load(
         //     - (textGeometry.boundingBox.max.z - textGeometry.boundingBox.min.x) * 0.5
         // )
         textGeometry.center()
-        const textMaterial = new THREE.MeshBasicMaterial()
-        textMaterial.wireframe = true
-        const text = new THREE.Mesh(textGeometry, textMaterial)
+        const Material = new THREE.MeshMatcapMaterial({matcap:matcapTexture})
+        // textMaterial.wireframe = true
+        const text = new THREE.Mesh(textGeometry, Material)
         scene.add(text)
+
+        // console.time('donuts')
+        
+        const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
+        // const donutMaterial = new THREE.MeshMatcapMaterial({matcap: matcapTexture})
+        for(let i = 0; i < 1000; i++){
+            
+            const donut = new THREE.Mesh(donutGeometry, Material)
+
+            donut.position.x = (Math.random() - 0.5) * 50
+            donut.position.y = (Math.random() - 0.5) * 50
+            donut.position.z = (Math.random() - 0.5) * 50
+
+            donut.rotation.x = Math.PI * Math.random()
+            donut.rotation.y = Math.PI * Math.random()
+
+            const scale = Math.random()
+            donut.scale.set(scale, scale, scale)
+
+            scene.add(donut)
+        }
+        // console.timeEnd('donuts')
     }
 )
 
