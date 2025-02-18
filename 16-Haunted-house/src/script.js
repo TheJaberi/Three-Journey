@@ -101,6 +101,16 @@ graveColorTexture.wrapS = THREE.RepeatWrapping
 graveColorTexture.wraps = THREE.RepeatWrapping
 graveARMTexture.wrapS = THREE.RepeatWrapping
 
+// Door
+const doorAlphaTexture = textureLoader.load('./door/alpha.jpg')
+const doorColorTexture = textureLoader.load('./door/color.jpg')
+const doorAmbientOcclusionTexture = textureLoader.load('./door/ambientOcclusion.jpg')
+const doorNormalTexture = textureLoader.load('./door/normal.jpg')
+const doorHeightTexture = textureLoader.load('./door/height.jpg')
+const doorMetalnessTexture = textureLoader.load('./door/metalness.jpg')
+const doorRoughnessTexture = textureLoader.load('./door/roughness.jpg')
+
+doorColorTexture.colorSpace = THREE.SRGBColorSpace
 
 
 /**
@@ -165,8 +175,19 @@ house.add(roof)
 
 // Door
 const door = new THREE.Mesh(
-    new THREE.PlaneGeometry(2.2, 2.2),
-    new THREE.MeshStandardMaterial()
+    new THREE.PlaneGeometry(2.2, 2.2, 100, 100),
+    new THREE.MeshStandardMaterial({
+        map: doorColorTexture,
+        transparent: true,
+        alphaMap: doorAlphaTexture,
+        aoMap: doorAmbientOcclusionTexture,
+        displacementMap: doorHeightTexture,
+        displacementScale: 0.15,
+        displacementBias: -0.04,
+        normalMap: doorNormalTexture,
+        metalnessMap: doorMetalnessTexture,
+        roughness: doorRoughnessTexture
+    })
 )
 door.position.y = 1
 door.position.z = 2 + 0.01 // to prevent z-fighting
