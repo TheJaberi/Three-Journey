@@ -24,7 +24,7 @@ const particleTexture = textureLoader.load('./textures/particles/2.png')
  * Particles
  */
 // Geometry
-const particleGeometry = new THREE.BufferGeometry()
+const particlesGeometry = new THREE.BufferGeometry()
 const count = 5000
 
 const positions =  new Float32Array(count * 3)
@@ -35,12 +35,12 @@ for(let i = 0; i < count * 3; i++){
     colors[i]= Math.random()
 }
 
-particleGeometry.setAttribute(
+particlesGeometry.setAttribute(
     'position',
     new THREE.BufferAttribute(positions, 3)
 )
 
-particleGeometry.setAttribute(
+particlesGeometry.setAttribute(
     'color',
     new THREE.BufferAttribute(colors, 3)
 )
@@ -60,7 +60,7 @@ const particleMaterial = new THREE.PointsMaterial({
     vertexColors: true // Allows to use the color attribute i created
 })
 // Points
-const particles = new THREE.Points(particleGeometry, particleMaterial)
+const particles = new THREE.Points(particlesGeometry, particleMaterial)
 scene.add(particles)
 
 /**
@@ -115,6 +115,19 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    // Update particles
+    // particles.rotation.y = elapsedTime * 0.2
+
+    for(let i = 0; i < count; i++){
+        const i3 = i * 3
+
+        const x = particlesGeometry.attributes.position.array[i3]
+        particlesGeometry.attributes.position.array[i3+1] = Math.sin(elapsedTime + x)
+
+    }
+
+    particlesGeometry.attributes.position.needsUpdate = true
 
     // Update controls
     controls.update()
