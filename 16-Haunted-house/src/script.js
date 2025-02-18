@@ -61,7 +61,6 @@ const roofARMTexture = textureLoader.load('./roof/roof_slates_02_1k/roof_slates_
 const roofNormalTexture = textureLoader.load('./roof/roof_slates_02_1k/roof_slates_02_nor_1k.jpg')
 
 roofColorTexture.colorSpace = THREE.SRGBColorSpace
-roofARMTexture.colorSpace = THREE.SRGBColorSpace
 
 roofColorTexture.repeat.set(3,1)
 roofARMTexture.repeat.set(3,1)
@@ -78,6 +77,31 @@ const bushNormalTexture = textureLoader.load('./bush/leaves_forest_ground_1k/lea
 
 bushColorTexture.colorSpace = THREE.SRGBColorSpace
 bushARMTexture.colorSpace = THREE.SRGBColorSpace
+
+bushColorTexture.repeat.set(2,1)
+bushARMTexture.repeat.set(2,1)
+bushNormalTexture.repeat.set(2,1)
+
+bushColorTexture.wrapS = THREE.RepeatWrapping
+bushColorTexture.wraps = THREE.RepeatWrapping
+bushARMTexture.wrapS = THREE.RepeatWrapping
+
+// Grave
+const graveColorTexture = textureLoader.load('./grave/plastered_stone_wall_1k/plastered_stone_wall_diff_1k.jpg')
+const graveARMTexture = textureLoader.load('./grave/plastered_stone_wall_1k/plastered_stone_wall_arm_1k.jpg')
+const graveNormalTexture = textureLoader.load('./grave/plastered_stone_wall_1k/plastered_stone_wall_nor_1k.jpg')
+
+graveColorTexture.colorSpace = THREE.SRGBColorSpace
+
+graveColorTexture.repeat.set(0.3,0.4)
+graveARMTexture.repeat.set(0.3,0.4)
+graveNormalTexture.repeat.set(0.3,0.4)
+
+graveColorTexture.wrapS = THREE.RepeatWrapping
+graveColorTexture.wraps = THREE.RepeatWrapping
+graveARMTexture.wrapS = THREE.RepeatWrapping
+
+
 
 /**
  * House
@@ -104,7 +128,7 @@ floor.rotation.x = - Math.PI * 0.5
 scene.add(floor)
 
 gui.add(floor.material, 'displacementScale').min(0).max(1).step(0.001).name('floorDisplacementScale')
-gui.add(floor.material, 'displacementBias').min(0).max(1).step(0.001).name('floorDisplacementBias')
+gui.add(floor.material, 'displacementBias').min(-1).max(1).step(0.001).name('floorDisplacementBias')
 
 // House container
 const house = new THREE.Group()
@@ -183,7 +207,13 @@ house.add(bush1, bush2, bush3, bush4)
 
 // Graves
 const graveGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.2)
-const graveMaterial = new THREE.MeshStandardMaterial()
+const graveMaterial = new THREE.MeshStandardMaterial({
+    map: graveColorTexture,
+    aoMap: graveARMTexture,
+    roughness: graveARMTexture,
+    metalnessMap: graveARMTexture,
+    normalMap: graveNormalTexture,
+})
 
 const graves = new THREE.Group()
 scene.add(graves)
