@@ -28,9 +28,11 @@ const particleGeometry = new THREE.BufferGeometry()
 const count = 5000
 
 const positions =  new Float32Array(count * 3)
+const colors = new Float32Array(count * 3)
 
 for(let i = 0; i < count * 3; i++){
     positions[i]= (Math.random() - 0.5 ) * 10
+    colors[i]= Math.random()
 }
 
 particleGeometry.setAttribute(
@@ -38,17 +40,24 @@ particleGeometry.setAttribute(
     new THREE.BufferAttribute(positions, 3)
 )
 
+particleGeometry.setAttribute(
+    'color',
+    new THREE.BufferAttribute(colors, 3)
+)
+
 // Material
 const particleMaterial = new THREE.PointsMaterial({
     size: 0.1,
     sizeAttenuation: true, // so if further becomes smaller
-    color: new THREE.Color('#ffffff'),
+    // color: new THREE.Color('#ffffff'),
     map: particleTexture,
     alphaMap: particleTexture,
     transparent: true,
     // alphaTest: 0.0001 this can fix the the borders
     // depthTest: false will draw even if objects infront of it
-    depthWrite: false
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexColors: true // Allows to use the color attribute i created
 })
 // Points
 const particles = new THREE.Points(particleGeometry, particleMaterial)
