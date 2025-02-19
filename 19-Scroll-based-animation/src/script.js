@@ -37,9 +37,19 @@ const scene = new THREE.Scene()
 /**
  * Objects
  */
+// Testure
+const textureLoader = new THREE.TextureLoader()
+const gradentTexture = textureLoader.load('textures/gradients/3.jpg')
+gradentTexture.magFilter = THREE.NearestFilter
 
-const material = new THREE.MeshToonMaterial({ color: parameters.materialColor})
 
+// Material
+const material = new THREE.MeshToonMaterial({ 
+    color: parameters.materialColor,
+    gradientMap: gradentTexture
+})
+
+// Meshes
 const mesh1 = new THREE.Mesh(
     new THREE.TorusGeometry(1, 0.4, 16, 60),
     material
