@@ -70,6 +70,8 @@ mesh3.position.y = - objectDistance * 2
 
 scene.add(mesh1, mesh2, mesh3)
 
+const sectionMeshes = [mesh1, mesh2, mesh3]
+
 /**
  * Lights
  */
@@ -119,6 +121,15 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 /**
+ * Scroll
+ */
+let scrollY = window.scrollY
+
+window.addEventListener('scroll', () => {
+    scrollY = window.scrollY    
+})
+
+/**
  * Animate
  */
 const clock = new THREE.Clock()
@@ -126,6 +137,15 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    // Anuimate Meshes
+    camera.position.y = - scrollY / sizes.height * objectDistance // moving camera based on screen size and the distance between objects
+
+    // Animate meshes
+    for(const mesh of sectionMeshes){
+        mesh.rotation.x = elapsedTime * 0.1
+        mesh.rotation.y = elapsedTime * 0.12
+    }
 
     // Render
     renderer.render(scene, camera)
