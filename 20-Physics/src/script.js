@@ -51,14 +51,14 @@ const defaultContactMaterial = new CANNON.ContactMaterial(
     }
 )
 world.addContactMaterial(defaultContactMaterial)
+world.defaultContactMaterial = defaultContactMaterial // set same material to all objects in world
 
 // Sphere
 const sphereShape = new CANNON.Sphere(0.5)
 const sphereBody = new CANNON.Body({
     mass: 1,
     position: new CANNON.Vec3(0, 3, 0),
-    shape: sphereShape,
-    material: defaultMaterial
+    shape: sphereShape
 })
 world.addBody(sphereBody)
 
@@ -66,8 +66,7 @@ world.addBody(sphereBody)
 const floorShape = new CANNON.Plane()
 const floorBody = new CANNON.Body({
     shape: floorShape,
-    mass:0, // default is 0, so we dont have to add it
-    material: defaultMaterial
+    mass:0// default is 0, so we dont have to add it
 })
 floorBody.quaternion.setFromAxisAngle(
     new CANNON.Vec3(-1, 0, 0),
