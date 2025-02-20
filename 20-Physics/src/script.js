@@ -38,6 +38,10 @@ const environmentMapTexture = cubeTextureLoader.load([
 const world = new CANNON.World()
 world.gravity.set(0, - 9.82, 0)
 
+// Materials
+const conreteMaterial = new CANNON.Material('concrete')
+const plasticMaterial = new CANNON.Material('plastic')
+
 // Sphere
 const sphereShape = new CANNON.Sphere(0.5)
 const sphereBody = new CANNON.Body({
@@ -46,6 +50,18 @@ const sphereBody = new CANNON.Body({
     shape: sphereShape
 })
 world.addBody(sphereBody)
+
+// Plane
+const floorShape = new CANNON.Plane()
+const floorBody = new CANNON.Body({
+    shape: floorShape,
+    mass:0 // default is 0, so we dont have to add it
+})
+floorBody.quaternion.setFromAxisAngle(
+    new CANNON.Vec3(-1, 0, 0),
+    Math.PI * 0.5
+)
+world.addBody(floorBody)
 
 /**
  * Test sphere
