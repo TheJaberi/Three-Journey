@@ -63,7 +63,7 @@ const environmentMapTexture = cubeTextureLoader.load([
  */
 // world
 const world = new CANNON.World()
-world.broadphase = new CANNON.SAPBroadphase(world) // doesnt check with eveything in world, so better performance
+world.broadphase = new CANNON.SAPBroadphase(world) // in the algorithm for testing collisions, wont go through whole whole list of objects unless close
 world.gravity.set(0, - 9.82, 0)
 
 // Materials
