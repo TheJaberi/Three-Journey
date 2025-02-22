@@ -40,16 +40,21 @@ scene.add(object1, object2, object3)
  * Raycaster
  */
 const rayCaster = new THREE.Raycaster()
-const rayOrigin = new THREE.Vector3(-3, 0, 0)
-const rayDirection = new THREE.Vector3(10, 0, 0)
-rayDirection.normalize()
+// const rayOrigin = new THREE.Vector3(-3, 0, 0)
+// const rayDirection = new THREE.Vector3(10, 0, 0)
+// rayDirection.normalize()
 
-rayCaster.set(rayOrigin, rayDirection)
+// rayCaster.set(rayOrigin, rayDirection)
 
-const intersect = rayCaster.intersectObject(object2)
-console.log(intersect);
-const intersects = rayCaster.intersectObjects([object1, object2, object3])
-console.log(intersects);
+// // Three js updates the postions of the matrix before rendering, so this would be wrong
+// object1.updateMatrixWorld()
+// object2.updateMatrixWorld()
+// object3.updateMatrixWorld()
+
+// const intersect = rayCaster.intersectObject(object2)
+// console.log(intersect);
+// const intersects = rayCaster.intersectObjects([object1, object2, object3])
+// console.log(intersects);
 
 
 /**
@@ -104,6 +109,21 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    const rayOrigin = new THREE.Vector3(-3, 0, 0)
+    const rayDirection = new THREE.Vector3(10, 0, 0)
+    rayDirection.normalize()
+    rayCaster.set(rayOrigin, rayDirection)
+
+    const intersect = rayCaster.intersectObject(object2)
+    const objectsToTest = [object1, object2, object3]
+    const intersects = rayCaster.intersectObjects(objectsToTest)
+    console.log(intersects.length)    
+
+    // Animate objects
+    object1.position.y = Math.sin(elapsedTime * 0.3) * 1.5
+    object2.position.y = Math.sin(elapsedTime * 0.8) * 1.5
+    object3.position.y = Math.sin(elapsedTime * 1.4) * 1.5
 
     // Update controls
     controls.update()
