@@ -115,10 +115,13 @@ const tick = () =>
     rayDirection.normalize()
     rayCaster.set(rayOrigin, rayDirection)
 
-    const intersect = rayCaster.intersectObject(object2)
     const objectsToTest = [object1, object2, object3]
     const intersects = rayCaster.intersectObjects(objectsToTest)
     console.log(intersects.length)    
+
+    for(const intersect of intersects){
+        intersect.object.material.color.set('#0000ff')
+    }
 
     // Animate objects
     object1.position.y = Math.sin(elapsedTime * 0.3) * 1.5
