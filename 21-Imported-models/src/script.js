@@ -23,7 +23,7 @@ console.log((gltfLoader));
 gltfLoader.load(
     'models/Duck/glTF/Duck.gltf',
     (gltf) =>{
-        console.log(gltf)
+        scene.add(gltf.scene.children[0])
     }
 )
 
