@@ -91,6 +91,13 @@ window.addEventListener('mousemove', (event) => {
     // console.log(mouse)
 })
 
+window.addEventListener('click', () => {
+    if(currentIntersect){
+        console.log('click on sphere');
+    }
+})
+
+
 /**
  * Camera
  */
