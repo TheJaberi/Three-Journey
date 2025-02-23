@@ -207,7 +207,12 @@ const tick = () =>
     // Test intersect with model
     if(model){
         const modelIntersects = rayCaster.intersectObject(model)
-        console.log(modelIntersects);
+
+        if(modelIntersects.length){
+            model.scale.set(1.2, 1.2, 1.2)
+        } else {
+            model.scale.set(1, 1, 1)
+        }
         
     }
 
