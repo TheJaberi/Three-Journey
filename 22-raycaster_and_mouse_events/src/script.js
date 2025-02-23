@@ -93,7 +93,13 @@ window.addEventListener('mousemove', (event) => {
 
 window.addEventListener('click', () => {
     if(currentIntersect){
-        console.log('click on sphere');
+        if(currentIntersect.object === object1){
+            console.log('click on object 1');
+        } else if(currentIntersect.object === object2){
+            console.log('click on object 2');
+        } else if(currentIntersect.object === object2){
+            console.log('click on object 2');
+        }
     }
 })
 
