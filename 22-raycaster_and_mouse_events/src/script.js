@@ -116,6 +116,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  * Animate
  */
 const clock = new THREE.Clock()
+let currentIntersect = null
 
 const tick = () =>
 {
@@ -137,6 +138,25 @@ const tick = () =>
     for(const intersect of intersects){
         intersect.object.material.color.set('#0000ff')
     }
+    if(intersects.length)
+    {
+        if(!currentIntersect)
+        {
+            console.log('mouse enter')
+        }
+
+        currentIntersect = intersects[0]
+    }
+    else
+    {
+        if(currentIntersect)
+        {
+            console.log('mouse leave')
+        }
+        
+        currentIntersect = null
+    }
+
 
     // Animate objects
     object1.position.y = Math.sin(elapsedTime * 0.3) * 1.5
