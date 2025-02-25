@@ -53,7 +53,7 @@ gui.add(scene.environmentRotation, 'y').min(0).max(Math.PI * 2).step(0.001).name
 
 // HDR (RGBE) equirectangular
 rgbeLoader.load(
-    '/environmentMaps/blender-2k.hdr',
+    '/environmentMaps/blender-studio-2k.hdr',
     (environmentMap) => {
         environmentMap.mapping = THREE.EquirectangularReflectionMapping
         scene.background = environmentMap
