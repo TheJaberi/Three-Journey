@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RGBELoader} from 'three/addons/loaders/RGBELoader.js'
+import { EXRLoader } from 'three/addons/loaders/EXRLoader.js'
 
 /**
  * Loaders
@@ -10,6 +11,7 @@ import { RGBELoader} from 'three/addons/loaders/RGBELoader.js'
 const gltfLoader = new GLTFLoader()
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 const rgbeLoader = new RGBELoader()
+const exrLoader = new EXRLoader()
 
 /**
  * Base
@@ -60,6 +62,16 @@ rgbeLoader.load(
         scene.environment = environmentMap
     }
 )
+
+// HDR (EXR) equirectangular
+// exrLoader.load(
+//     '/environmentMaps/nvidiaCanvas-4k.exr',
+//     (environmentMap) => {
+//         environmentMap.mapping = THREE.EquirectangularReflectionMapping
+//         scene.background = environmentMap
+//         scene.environment = environmentMap
+//     }
+// )
 
 /**
  * Torus Knot
