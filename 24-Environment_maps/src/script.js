@@ -13,7 +13,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
  * Base
  */
 // Debug
-const gui = new GUI()
+const gui = new GUI({ width: 300})
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -24,6 +24,17 @@ const scene = new THREE.Scene()
 /**
  * Environment map
  */
+scene.environmentIntensity = 4
+scene.backgroundBlurriness = 0
+scene.backgroundIntensity = 1
+// scene.backgroundRotation.x = 1
+// scene.environmentRotation.x = 1
+
+gui.add(scene, 'environmentIntensity').min(0).max(10).step(0.001)
+gui.add(scene, 'backgroundBlurriness').min(0).max(1).step(0.001)
+gui.add(scene, 'backgroundIntensity').min(0).max(10).step(0.001)
+gui.add(scene.backgroundRotation, 'y').min(0).max(Math.PI * 2).step(0.001).name('Background rotation')
+gui.add(scene.environmentRotation, 'y').min(0).max(Math.PI * 2).step(0.001).name('Environment rotation')
 
 // LDR cube texture
 const environmentMap = cubeTextureLoader.load([
