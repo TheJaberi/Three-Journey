@@ -10,6 +10,7 @@ import { GroundedSkybox } from 'three/addons/objects/GroundedSkybox.js'
  * Loaders
  */
 const gltfLoader = new GLTFLoader()
+const textureLoader = new THREE.TextureLoader()
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 const rgbeLoader = new RGBELoader()
 const exrLoader = new EXRLoader()
@@ -74,21 +75,47 @@ gui.add(scene.environmentRotation, 'y').min(0).max(Math.PI * 2).step(0.001).name
 //     }
 // )
 
-// Ground projected skybox
-rgbeLoader.load(
-    '/environmentMaps/2/2k.hdr',
-    (environmentMap) => {
-        environmentMap.mapping = THREE.EquirectangularReflectionMapping
-        // scene.background = environmentMap
-        scene.environment = environmentMap
+// LDR equirectangular
+// const environmentMap = textureLoader.load('environmentMaps/blockadesLabsSkybox/anime_art_style_japan_streets_with_cherry_blossom_.jpg')
+// environmentMap.mapping = THREE.EquirectangularReflectionMapping
+// environmentMap.colorSpace = THREE.SRGBColorSpace
 
-        // Skybox
-        const skyBox = new GroundedSkybox(environmentMap, 15, 70)
-        // skyBox.material.wireframe = true
-        skyBox.position.y = 15
-        scene.add(skyBox)
-    }
+// scene.background = environmentMap
+// scene.environment = environmentMap
+
+
+// Ground projected skybox
+// rgbeLoader.load(
+//     '/environmentMaps/2/2k.hdr',
+//     (environmentMap) => {
+//         environmentMap.mapping = THREE.EquirectangularReflectionMapping
+//         // scene.background = environmentMap
+//         scene.environment = environmentMap
+
+//         // Skybox
+//         const skyBox = new GroundedSkybox(environmentMap, 15, 70)
+//         // skyBox.material.wireframe = true
+//         skyBox.position.y = 15
+//         scene.add(skyBox)
+//     }
+// )
+
+/**
+ * Real time environment map
+ */
+const environmentMap = textureLoader.load('environmentMaps/blockadesLabsSkybox/interior_views_cozy_wood_cabin_with_cauldron_and_p.jpg')
+environmentMap.mapping = THREE.EquirectangularReflectionMapping
+environmentMap.colorSpace = THREE.SRGBColorSpace
+
+scene.background = environmentMap
+// scene.environment = environmentMap
+
+const holyDonut = new THREE.Mesh(
+    new THREE.TorusGeometry(8, 0.5),
+    new THREE.MeshBasicMaterial({color: 'white'})
 )
+holyDonut.position.y = 3.5
+scene.add(holyDonut)
 
 /**
  * Torus Knot
@@ -169,6 +196,11 @@ const tick = () =>
 {
     // Time
     const elapsedTime = clock.getElapsedTime()
+
+    // Real time environment map
+    if (holyDonut){
+        holyDonut.rotation.x = Math.sin(elapsedTime) * 2
+    }
 
     // Update controls
     controls.update()
