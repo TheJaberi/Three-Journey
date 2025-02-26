@@ -112,7 +112,7 @@ scene.background = environmentMap
 
 const holyDonut = new THREE.Mesh(
     new THREE.TorusGeometry(8, 0.5),
-    new THREE.MeshBasicMaterial({color: 'white'})
+    new THREE.MeshBasicMaterial({color: new THREE.Color(10, 4, 2)})
 )
 holyDonut.position.y = 3.5
 scene.add(holyDonut)
