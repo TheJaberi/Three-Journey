@@ -4,6 +4,7 @@ import GUI from 'lil-gui'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RGBELoader} from 'three/addons/loaders/RGBELoader.js'
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js'
+import { GroundedSkybox } from 'three/addons/objects/GroundedSkybox.js'
 
 /**
  * Loaders
@@ -28,7 +29,7 @@ const scene = new THREE.Scene()
 /**
  * Environment map
  */
-scene.environmentIntensity = 4
+scene.environmentIntensity = 1
 scene.backgroundBlurriness = 0
 scene.backgroundIntensity = 1
 // scene.backgroundRotation.x = 1
@@ -54,14 +55,14 @@ gui.add(scene.environmentRotation, 'y').min(0).max(Math.PI * 2).step(0.001).name
 // scene.background = environmentMap
 
 // HDR (RGBE) equirectangular
-rgbeLoader.load(
-    '/environmentMaps/blender-studio-2k.hdr',
-    (environmentMap) => {
-        environmentMap.mapping = THREE.EquirectangularReflectionMapping
-        scene.background = environmentMap
-        scene.environment = environmentMap
-    }
-)
+// rgbeLoader.load(
+//     '/environmentMaps/blender-studio-2k.hdr',
+//     (environmentMap) => {
+//         environmentMap.mapping = THREE.EquirectangularReflectionMapping
+//         scene.background = environmentMap
+//         scene.environment = environmentMap
+//     }
+// )
 
 // HDR (EXR) equirectangular
 // exrLoader.load(
@@ -72,6 +73,22 @@ rgbeLoader.load(
 //         scene.environment = environmentMap
 //     }
 // )
+
+// Ground projected skybox
+rgbeLoader.load(
+    '/environmentMaps/2/2k.hdr',
+    (environmentMap) => {
+        environmentMap.mapping = THREE.EquirectangularReflectionMapping
+        // scene.background = environmentMap
+        scene.environment = environmentMap
+
+        // Skybox
+        const skyBox = new GroundedSkybox(environmentMap, 15, 70)
+        // skyBox.material.wireframe = true
+        skyBox.position.y = 15
+        scene.add(skyBox)
+    }
+)
 
 /**
  * Torus Knot
