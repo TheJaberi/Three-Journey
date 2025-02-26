@@ -115,6 +115,7 @@ const holyDonut = new THREE.Mesh(
     new THREE.MeshBasicMaterial({color: new THREE.Color(10, 4, 2)})
 )
 holyDonut.position.y = 3.5
+holyDonut.layers.enable(1)
 scene.add(holyDonut)
 
 /**
@@ -123,7 +124,7 @@ scene.add(holyDonut)
 const torusKnot = new THREE.Mesh(
     new THREE.TorusKnotGeometry(1, 0.4, 100, 16),
     new THREE.MeshStandardMaterial({
-        roughness: 0.3,
+        roughness: 0.0,
         metalness: 1,
         color: 0xaaaaaa
     })
@@ -142,6 +143,7 @@ const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(
 scene.environment = cubeRenderTarget.texture
 
 const cubeCamera = new THREE.CubeCamera(0.1, 100, cubeRenderTarget)
+cubeCamera.layers.set(1)
 
 /**
  * Models
