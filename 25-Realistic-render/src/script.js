@@ -118,6 +118,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 // // Tone mapping
 renderer.toneMapping = THREE.ReinhardToneMapping
+renderer.toneMappingExposure = 3
 
 gui.add(renderer, 'toneMapping', {
     No: THREE.NoToneMapping,
@@ -126,6 +127,7 @@ gui.add(renderer, 'toneMapping', {
     cineon: THREE.CineonToneMapping,
     AcesFilmic: THREE.ACESFilmicToneMapping,
 })
+gui.add(renderer, 'toneMappingExposure').min(0).max(10).step(0.001)
 
 /**
  * Animate
