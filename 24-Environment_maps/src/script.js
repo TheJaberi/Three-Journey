@@ -132,6 +132,17 @@ torusKnot.position.x = - 4
 torusKnot.position.y = 4
 scene.add(torusKnot)
 
+// Cube render target
+const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(
+    256, 
+    {
+        type: THREE.HalfFloatType
+    }
+)
+scene.environment = cubeRenderTarget.texture
+
+const cubeCamera = new THREE.CubeCamera(0.1, 100, cubeRenderTarget)
+
 /**
  * Models
  */
@@ -200,6 +211,7 @@ const tick = () =>
     // Real time environment map
     if (holyDonut){
         holyDonut.rotation.x = Math.sin(elapsedTime) * 2
+        cubeCamera.update(renderer, scene)
     }
 
     // Update controls
