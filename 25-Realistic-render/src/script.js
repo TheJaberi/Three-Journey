@@ -9,7 +9,7 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
  */
 const gltfLoader = new GLTFLoader()
 const rgbeLoader = new RGBELoader()
-
+const textureLoader = new THREE.TextureLoader()
 /**
  * Base
  */
@@ -99,6 +99,51 @@ gltfLoader.load(
         updateAllMaterials()
     }
 )
+
+/**
+ * Floor
+ */
+const floorColorTexture = textureLoader.load('textures/wood_cabinet_worn_long/wood_cabinet_worn_long_diff_1k.jpg')
+const floorNormalTexture = textureLoader.load('textures/wood_cabinet_worn_long/wood_cabinet_worn_long_nor_gl_1k.jpg')
+const floorAORoughnessMetalnessTexture = textureLoader.load('textures/wood_cabinet_worn_long/wood_cabinet_worn_long_arm_1k.jpg')
+
+floorColorTexture.colorSpace = THREE.SRGBColorSpace
+
+const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(8, 8),
+    new THREE.MeshStandardMaterial({
+        map: floorColorTexture,
+        normalMap: floorNormalTexture,
+        aoMap: floorAORoughnessMetalnessTexture,
+        roughnessMap: floorAORoughnessMetalnessTexture,
+        metalnessMap: floorAORoughnessMetalnessTexture,
+    })
+)
+floor.rotation.x = - Math.PI * 0.5
+scene.add(floor)
+
+/**
+ * Wall
+ */
+const wallColorTexture = textureLoader.load('/textures/castle_brick_broken_06/castle_brick_broken_06_diff_1k.jpg')
+const wallNormalTexture = textureLoader.load('/textures/castle_brick_broken_06/castle_brick_broken_06_nor_gl_1k.png')
+const wallAORoughnessMetalnessTexture = textureLoader.load('/textures/castle_brick_broken_06/castle_brick_broken_06_arm_1k.jpg')
+
+wallColorTexture.colorSpace = THREE.SRGBColorSpace
+
+const wall = new THREE.Mesh(
+    new THREE.PlaneGeometry(8, 8),
+    new THREE.MeshStandardMaterial({
+        map: wallColorTexture,
+        normalMap: wallNormalTexture,
+        aoMap: wallAORoughnessMetalnessTexture,
+        roughnessMap: wallAORoughnessMetalnessTexture,
+        metalnessMap: wallAORoughnessMetalnessTexture,
+    })
+)
+wall.position.y = 4
+wall.position.z = - 4
+scene.add(wall)
 
 /**
  * Sizes
