@@ -115,7 +115,7 @@ gltfLoader.load(
 directionalLight.shadow.normalBias = 0.027
 directionalLight.shadow.bias = - 0.004
 gui.add(directionalLight.shadow, 'normalBias').min(- 0.05).max(0.05).step(0.001)
-gui.add(directionalLight.shadow, 'bias')
+gui.add(directionalLight.shadow, 'bias').min(- 0.05).max(0.05).step(0.001)
 
 /**
  * Floor
