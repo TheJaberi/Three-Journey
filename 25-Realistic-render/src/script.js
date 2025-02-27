@@ -89,16 +89,33 @@ directionalLight.shadow.mapSize.set(1024, 1024)
  * Models
  */
 // Helmet
+// gltfLoader.load(
+//     '/models/FlightHelmet/glTF/FlightHelmet.gltf',
+//     (gltf) =>
+//     {
+//         gltf.scene.scale.set(10, 10, 10)
+//         scene.add(gltf.scene)
+
+//         updateAllMaterials()
+//     }
+// )
+
+// Hamburger
 gltfLoader.load(
-    '/models/FlightHelmet/glTF/FlightHelmet.gltf',
+    '/models/hamburger.glb',
     (gltf) =>
     {
-        gltf.scene.scale.set(10, 10, 10)
+        gltf.scene.scale.set(0.4, 0.4, 0.4)
+        gltf.scene.position.set(0, 0, 0)
         scene.add(gltf.scene)
 
         updateAllMaterials()
     }
 )
+directionalLight.shadow.normalBias = 0.027
+directionalLight.shadow.bias = - 0.004
+gui.add(directionalLight.shadow, 'normalBias').min(- 0.05).max(0.05).step(0.001)
+gui.add(directionalLight.shadow, 'bias')
 
 /**
  * Floor
